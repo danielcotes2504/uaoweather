@@ -18,7 +18,8 @@ const data2={
     humidity: "25",
     wind: "10"
 }
-const url ="https://run.mocky.io/v3/0c3e6285-a101-48c1-8a66-5ae1739fa04c";
+//const url ="https://run.mocky.io/v3/0c3e6285-a101-48c1-8a66-5ae1739fa04c";
+const url = "http://api.openweathermap.org/data/2.5/weather?q=London&appid=8300664084a1f5f8ac96117a0a7eb989"
 class WeatherCity extends Component {
 
     constructor(){
@@ -48,9 +49,10 @@ class WeatherCity extends Component {
         const {speed} = response_Data.wind;
         const weatherState = SNOW;
 
+        const new_temp = Math.round((temp - 32) * 5/9);
         const data = {
             humidity,
-            temp,
+            temp:new_temp,
             wind: speed,
             icon: weatherState
         }
@@ -62,7 +64,10 @@ class WeatherCity extends Component {
         axios.get(url).then(data =>{
             console.log(data.data)
             const newData = this.getData(data.data);
-            this.setState
+            this.setState({
+                city: "Palmira",
+                data: newData,
+            })
         
         }).catch(err =>{console.log(err)})
     }
